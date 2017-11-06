@@ -23,4 +23,8 @@ class Graph
       puts node.edges.size
     end
   end
+
+  def get_node(node_id)
+    @graph[node_id]
+  end
 end
