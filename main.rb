@@ -2,4 +2,4 @@
 
 require './parser'
 
-puts Parser.new.parseFile($*.first).size
+Parser.new.parseFile($*.first).check_graph
