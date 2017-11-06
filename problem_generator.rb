@@ -1,4 +1,4 @@
-size = ARGV[0].to_i
+size = $*.first.to_i
 
 Node = Struct.new(:id, :links)
 

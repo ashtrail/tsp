@@ -2,4 +2,4 @@
 
 require './parser'
 
-Parser.new.parseFile($*.first).check_graph
+Parser.new.parse_file($*.first).check_graph

@@ -1,17 +1,17 @@
-require './edge'
+require './node'
 
 class Graph
   def initialize
     @graph = []
   end
 
-  def add?(edge_id)
-    @graph << Edge.new(edge_id)
+  def add(node_id)
+    @graph << Node.new(node_id)
   end
 
-  def add_link(edge1, edge2, distance)
-    @graph[edge1].add_connected_edge(edge2, distance)
-    @graph[edge2].add_connected_edge(edge1, distance)
+  def add_link(first_node_id, second_node_id, distance)
+    @graph[first_node_id].add_edge(second_node_id, distance)
+    @graph[second_node_id].add_edge(first_node_id, distance)
   end
 
   def size
@@ -19,8 +19,8 @@ class Graph
   end
 
   def check_graph
-    @graph.each do |edge|
-      puts edge.connected_edges.size
+    @graph.each do |node|
+      puts node.edges.size
     end
   end
 end
