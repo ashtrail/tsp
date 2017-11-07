@@ -1,13 +1,15 @@
 #!/usr/bin/env ruby
 
 require './parser'
+require './greedy_solver'
 require './random_solver'
 
-start_time = Time.now
 
 solver = RandomSolver.new(Parser.new.parse_file($*.first))
 
 output = File.new($*[1], "w")
+
+start_time = Time.now
 
 solver.solve
 

@@ -7,6 +7,7 @@ class RandomSolver
 		@size = graph.size
 		@visited_nodes = []
 		@cost = 0
+    @solution = []
 	end
 
 	def get_unvisited_nodes(node_edges)
@@ -18,7 +19,15 @@ class RandomSolver
 		unvisited_nodes
 	end
 
-	def solve()
+  def solve()
+    @solution = @graph.get_node(0).edges.keys.shuffle
+    @solution.unshift(0)
+    @solution.push(0)
+    @solution
+  end
+
+  # way less optimised, just here for reference
+	def solve2()
 		curr_node = @graph.get_node(0)
 		@visited_nodes.push(0)
 		(@size - 1).times do |i|
@@ -31,11 +40,12 @@ class RandomSolver
 		end
 		@cost += curr_node.edges[0]
 		@visited_nodes.push(0)
+    @solution = @visited_nodes
 	end
 
 	def get_path()
 		path = ""
-		@visited_nodes.each do |elem|
+		@solution.each do |elem|
 			path += "#{elem + 1}\n"
 		end
 		path
@@ -44,4 +54,10 @@ class RandomSolver
 	def get_cost()
 		@cost
 	end
+
+  def compute_cost()
+
+#    @solution.each do |node_id|
+#      if ()
+  end
 end
