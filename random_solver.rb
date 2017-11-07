@@ -1,4 +1,4 @@
-require './parser'
+require './graph'
 
 # finds a random solution for tsp
 class RandomSolver
@@ -10,11 +10,7 @@ class RandomSolver
 	end
 
 	def get_unvisited_nodes(node_edges)
-		unvisited_nodes = []
-
-	  	node_edges.each do |key, value|
-	  		unvisited_nodes.push(key)
-	  	end
+		unvisited_nodes = node_edges.keys
 
 		@visited_nodes.each do |idx|
 			unvisited_nodes.delete(idx)
@@ -35,8 +31,14 @@ class RandomSolver
 		end
 		@cost += curr_node.edges[0]
 		@visited_nodes.push(0)
+	end
 
-		@visited_nodes.map { |elem| elem + 1 }
+	def get_path()
+		path = ""
+		@visited_nodes.each do |elem|
+			path += "#{elem + 1}\n"
+		end
+		path
 	end
 
 	def get_cost()
