@@ -6,6 +6,9 @@ require_relative 'src/solution_optimizer'
 require_relative 'src/timer'
 
 # init
+total_time = 30
+safety_time = 2
+
 time = Timer.new
 time.start()
 
@@ -36,8 +39,9 @@ puts "first cost = #{first_cost}"
 time.save("solving")
 
 # optimisation for 5 seconds
+deadline = total_time - safety_time
 optimizer.init(graph, solution)
-solution = optimizer.two_opt(time, 25)
+solution = optimizer.two_opt(time, deadline)
 
 time.save("optimization")
 

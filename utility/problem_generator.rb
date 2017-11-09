@@ -23,7 +23,7 @@ size.times do |i|
     if (j == i)
       node.links.push(0)
     elsif (j > i)
-      distance = 1 + rand(100)
+      distance = 1 + rand(1000)
       node.links.push(distance)
       node_list[j].links.push(distance)
     end

@@ -6,6 +6,9 @@ require_relative 'src/solution_optimizer'
 require_relative 'src/timer'
 
 # init
+total_time = 30
+safety_time = 2
+
 time = Timer.new
 time.start()
 
@@ -28,16 +31,16 @@ end
 
 time.save("parsing")
 
-# random solve loop until 20 seconds
+# greedy solve
 solution = solver.solve(graph)
 first_cost = Utility.compute_cost(graph, solution)
-
 puts "first cost = #{first_cost}"
 time.save("solving")
 
-# optimisation for 5 seconds
+# optimization
+deadline = total_time - safety_time
 optimizer.init(graph, solution)
-solution = optimizer.two_opt(time, 25)
+solution = optimizer.two_opt(time, deadline)
 
 time.save("optimization")
 
