@@ -14,7 +14,7 @@ class SolutionOptimizer
   #   return res
   # end
 
-  # def two_opt()
+  # def two_opt_alternative()
   #   improved = true
   #   while improved
   #     improved = false

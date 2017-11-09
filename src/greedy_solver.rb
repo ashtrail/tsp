@@ -12,7 +12,7 @@ class GreedySolver
   def get_unvisited_nodes(node_edges)
     unvisited_nodes = node_edges.dup
 
-    @visited_nodes.each { |idx| unvisited_nodes.delete(idx) }
+    @visited_nodes.each {|idx| unvisited_nodes.delete(idx)}
 
     unvisited_nodes
   end
@@ -24,7 +24,7 @@ class GreedySolver
     (size - 1).times do |i|
       unvisited_nodes = get_unvisited_nodes(curr_node.edges)
       # get nearest neighbor 
-      closest_neighbor = unvisited_nodes.min_by { |id, distance| distance }
+      closest_neighbor = unvisited_nodes.min_by {|id, distance| distance}
       next_node_id = closest_neighbor[0]
       @cost += curr_node.edges[next_node_id]
       @visited_nodes.push(next_node_id)
