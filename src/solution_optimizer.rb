@@ -1,27 +1,18 @@
-require './utility'
+require_relative 'utility'
 
 # for each city finds the nearest neighbor
 class SolutionOptimizer
-    attr_reader :solution
 
-  def initialize(graph, solution)
+  def init(graph, solution)
     @graph = graph
-    @solution = solution.dup
-    @solution.shift
-    @solution.pop
+    @solution = Utility.strip(solution)
     @size = @solution.size
   end
 
-
-  def compute_distance(i, j)
-    res = @graph.get_node(solution[i]).edges[solution[j]]
-    # if (res.nil?)
-    #   puts "i : #{i}, j : #{j}"
-    #   puts "solution[i] : #{solution[i]}, solution[j] : #{solution[j]}"
-    #   print "edges : #{@graph.get_node(solution[i]).edges}\n\n"
-    # end
-    return res
-  end
+  # def compute_distance(i, j)
+  #   res = @graph.get_node(@solution[i]).edges[@solution[j]]
+  #   return res
+  # end
 
   # def two_opt()
   #   improved = true
@@ -42,25 +33,23 @@ class SolutionOptimizer
   #   @solution
   # end
 
-  def two_opt()
-    best_cost = Utility.compute_cost(@graph, @solution)
+  def two_opt(timer, limit)
+    best_cost = Utility.compute_cost(@graph, Utility.reformat(@solution))
     (@size - 1).times do |i|
-      for k in (i + 1)..(@size - 1)
- #       puts "i #{i}, k #{k}, size - 1 : #{(@size - 1)}"
+      for j in (i + 1)..(@size - 1)
+        if (timer.ellapsed >= limit)
+          return Utility.reformat(@solution)
+        end
+
         new_path = @solution.dup
-        # puts "before #{solution}"
-        # puts "culprits -> i #{i}, k #{k}, size #{@solution.size}"
-        new_path[i], new_path[k] = new_path[k], new_path[i]
-        # puts "after #{new_path}"
-        new_cost = Utility.compute_cost(@graph, new_path)
+        new_path[i], new_path[j] = new_path[j], new_path[i]
+        new_cost = Utility.compute_cost(@graph, Utility.reformat(new_path))
         if (new_cost < best_cost)
           @solution = new_path
           best_cost = new_cost
         end  
       end
     end
-    solution.unshift(0)
-    solution.push(0)
-    @solution
+    Utility.reformat(@solution)
   end
 end

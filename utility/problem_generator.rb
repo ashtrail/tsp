@@ -1,4 +1,8 @@
-# creates an input file argv[0] for tsp problem of size argv[1]
+#!/usr/bin/env ruby
+
+# ============================================================= #
+# creates an input file argv[0] for tsp problem of size argv[1] #
+# ============================================================= #
 
 size = $*.first.to_i
 

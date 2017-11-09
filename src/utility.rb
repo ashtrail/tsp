@@ -1,4 +1,4 @@
-require './graph'
+require_relative 'graph'
 
 # useful static functions used by all the solvers
 class Utility
@@ -7,23 +7,13 @@ class Utility
     last_node = 0
     curr_node = 0
     cost = 0
-    # puts "solution #{solution}"
     solution.size.times do |i|
       curr_node = solution[i]
       if (i > 0)
-        # puts "i : #{i}, solution[i] #{solution[i]}"
-        # puts "last_node #{last_node}, curr_node #{curr_node}"
         distance = graph.get_node(last_node).edges[curr_node]
-        # if (distance.nil?)
-        #   puts "i : #{i}, solution[i] #{solution[i]}"
-        #   puts "last_node #{last_node}, curr_node #{curr_node}"
-        #   print "edges : #{@graph.get_node(last_node).edges}\n\n"          
-        # end
         cost += distance
       end
-      # puts "last_node #{last_node}, curr_node #{curr_node}"
       last_node = curr_node
-      # print "last_node #{last_node}, curr_node #{curr_node}\n\n"
     end
     cost
   end
@@ -35,5 +25,20 @@ class Utility
     end
     str
   end
+
+  def self.strip(solution)
+    res = solution.dup
+    res.shift()
+    res.pop()
+    res
+  end
+
+  def self.reformat(solution)
+    res = solution.dup
+    res.unshift(0)
+    res.push(0)
+    res
+  end
+
 
 end

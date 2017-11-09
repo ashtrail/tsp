@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 
 # =============================================== # 
 # run on a solution file to know if it is correct #

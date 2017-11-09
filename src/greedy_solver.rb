@@ -1,12 +1,9 @@
-require './graph'
+require_relative 'graph'
 
 # for each city finds the nearest neighbor
 class GreedySolver
-  attr_reader :solution
 
-  def initialize(graph)
-    @graph = graph
-    @size = graph.size
+  def initialize()
     @visited_nodes = []
     @cost = 0
     @solution = []
@@ -20,17 +17,18 @@ class GreedySolver
     unvisited_nodes
   end
 
-  def solve()
-    curr_node = @graph.get_node(0)
+  def solve(graph)
+    size = graph.size
+    curr_node = graph.get_node(0)
     @visited_nodes.push(0)
-    (@size - 1).times do |i|
+    (size - 1).times do |i|
       unvisited_nodes = get_unvisited_nodes(curr_node.edges)
       # get nearest neighbor 
       closest_neighbor = unvisited_nodes.min_by { |id, distance| distance }
       next_node_id = closest_neighbor[0]
       @cost += curr_node.edges[next_node_id]
       @visited_nodes.push(next_node_id)
-      curr_node = @graph.get_node(next_node_id)
+      curr_node = graph.get_node(next_node_id)
     end
     @cost += curr_node.edges[0]
     @visited_nodes.push(0)

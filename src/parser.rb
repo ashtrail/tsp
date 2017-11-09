@@ -1,4 +1,4 @@
-require './graph'
+require_relative 'graph'
 
 class Parser
 
