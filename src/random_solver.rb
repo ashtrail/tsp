@@ -2,11 +2,13 @@ require './graph'
 
 # finds a random solution for tsp
 class RandomSolver
-  def initialize(graph)
-    @graph = graph
-    @size = graph.size
-    @visited_nodes = []
-    @cost = 0
+  attr_reader :solution
+
+	def initialize(graph)
+		@graph = graph
+		@size = graph.size
+		@visited_nodes = []
+		@cost = 0
     @solution = []
   end
 
@@ -41,23 +43,6 @@ class RandomSolver
     @cost += curr_node.edges[0]
     @visited_nodes.push(0)
     @solution = @visited_nodes
-  end
+	end
 
-  def get_path()
-    path = ""
-    @solution.each do |elem|
-      path += "#{elem + 1}\n"
-    end
-    path
-  end
-
-  def get_cost()
-    @cost
-  end
-
-  def compute_cost()
-
-#    @solution.each do |node_id|
-#      if ()
-  end
 end

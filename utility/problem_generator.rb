@@ -1,3 +1,5 @@
+# creates an input file argv[0] for tsp problem of size argv[1]
+
 size = $*.first.to_i
 
 Node = Struct.new(:id, :links)
