@@ -30,7 +30,7 @@ rescue => error
   exit
 end
 
-time.save("parsing")
+# time.save("parsing")
 
 # random solve loop
 solution = solver.solve(graph)
@@ -45,22 +45,22 @@ while time.ellapsed < deadline do
   end
 end
 
-puts "best cost = #{best_cost}"
-time.save("solving")
+# puts "best cost = #{best_cost}"
+# time.save("solving")
 
 # optimization
 deadline = total_time - safety_time
 optimizer.init(graph, solution)
 solution = optimizer.two_opt(time, deadline)
 
-time.save("optimization")
+# time.save("optimization")
 
 # output of the solution
 output.print "#{Utility.solution_to_s(solution)}"
 output.close
 
-print "time : #{(time.ellapsed)}\ncost : #{Utility.compute_cost(graph, solution)}\n"
+puts "#{(time.ellapsed)}"
 
-time.save("output")
-
-print time.history()
+# print "time : #{(time.ellapsed)}\ncost : #{Utility.compute_cost(graph, solution)}\n"
+# time.save("output")
+# print time.history()
