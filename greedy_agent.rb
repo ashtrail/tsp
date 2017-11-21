@@ -10,12 +10,10 @@ total_time = 30
 safety_time = 2
 
 time = Timer.new
-time.start()
+time.start
 
 solver = GreedySolver.new
 optimizer = SolutionOptimizer.new
-
-solution = []
 
 # time.save("init")
 
@@ -28,7 +26,7 @@ rescue
   exit
 end
 
-#time.save("parsing")
+# time.save("parsing")
 
 # greedy solve
 solution = solver.solve(graph)
@@ -40,6 +38,7 @@ first_cost = Utility.compute_cost(graph, solution)
 deadline = total_time - safety_time
 optimizer.init(graph, solution)
 solution = optimizer.two_opt(time, deadline)
+# puts "Final cost = #{Utility.compute_cost(graph, solution)}"
 
 # time.save("optimization")
 

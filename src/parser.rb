@@ -14,6 +14,7 @@ class Parser
       end
     end
 
+    graph.freeze
     graph
   end
 
