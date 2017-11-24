@@ -9,7 +9,7 @@ class Utility
     cost = 0
     solution.size.times do |i|
       curr_node = solution[i]
-      if (i > 0)
+      if i > 0
         distance = graph.get_node(last_node).edges[curr_node]
         cost += distance
       end
