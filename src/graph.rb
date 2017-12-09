@@ -18,12 +18,6 @@ class Graph
     @graph.size
   end
 
-  def check_graph
-    @graph.each do |node|
-      puts node.edges.size
-    end
-  end
-
   def get_node(node_id)
     @graph[node_id]
   end
@@ -50,4 +44,8 @@ class Graph
     path_cost(array) + distance(array.last, array.first)    
   end
 
+  # @return [Array<Node>]
+  def to_a
+    @graph
+  end
 end
