@@ -32,24 +32,30 @@ end
 
 # greedy solve
 solution = solver.solve(graph)
-first_cost = Utility.compute_cost(graph, solution)
-# puts "first cost = #{first_cost}"
-# time.save("solving")
+
+#first_cost = Utility.compute_cost(graph, solution)
+# puts "#{solution}"
+puts "first cost = #{solver.cost}"
+time.save("solving")
 
 # optimization
 deadline = total_time - safety_time
 optimizer.init(graph, solution)
 solution = optimizer.two_opt(time, deadline)
 
-# time.save("optimization")
+# puts "#{solution}"
+puts "optimized cost = #{Utility.compute_cost(graph, solution)}"
+
+#cost = Utility.compute_cost(graph, solution)
+
+time.save("optimization")
 
 # output of the solution
 output.print "#{Utility.solution_to_s(solution)}"
 output.close
 
-puts "#{(time.ellapsed)}"
-# print "time : #{(time.ellapsed)}\ncost : #{Utility.compute_cost(graph, solution)}\n"
+# puts "#{(time.ellapsed)}"
 
-# time.save("output")
-
-# print time.history()
+print "time : #{(time.ellapsed)}\ncost : #{Utility.compute_cost(graph, solution)}\n"
+time.save("output")
+print time.history()

@@ -50,3 +50,6 @@ build-iPhoneSimulator/
 .rvmrc
 
 *.txt
+Test*
+test*
+agents/*

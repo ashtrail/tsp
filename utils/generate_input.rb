@@ -4,7 +4,15 @@
 # creates an input file argv[0] for tsp problem of size argv[1] #
 # ============================================================= #
 
-size = $*.first.to_i
+raise "Usage : ./generate_input.rb nb_nodes nodes_value_range" if ARGV.length != 2  
+
+begin
+  size = ARGV[0].to_i
+  range = ARGV[1].to_i
+rescue 
+  puts "Usage : ./generate_input.rb nb_nodes nodes_value_range"
+  exit
+end
 
 Node = Struct.new(:id, :links)
 
@@ -23,7 +31,7 @@ size.times do |i|
     if (j == i)
       node.links.push(0)
     elsif (j > i)
-      distance = 1 + rand(1000)
+      distance = 1 + rand(range)
       node.links.push(distance)
       node_list[j].links.push(distance)
     end
