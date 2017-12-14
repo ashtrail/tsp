@@ -37,8 +37,10 @@ class LKPath
   # example : [a, b, c, d, e].cut(b) =  [a, b, e, d, c]
   def rearrange(node)
     idx = @path.index(node) + 1
+    # cost = @cost - distance(x, y) - distance(x, e)
+    cost = @cost - @@graph.distance(node, @path[idx]) + @@graph.distance(node, path.last)
     new_path = @path[0, idx] + @path[idx, @path.length].reverse
-    LKPath.new(new_path, @@graph.path_cost(@path))
+    LKPath.new(new_path, cost)
   end
 
   # connects the begining and the end the path
@@ -76,7 +78,8 @@ class LKTour
   def cut(node)
     idx = @tour.index(node) + 1
     path = @tour[idx, @tour.length] + @tour[0, idx]
-    LKPath.new(path, @@graph.path_cost(path))
+    cost = @cost - @@graph.distance(path.last, path.first)
+    LKPath.new(path, cost)
   end
 
   # transforms the tour into the accepted solution format
@@ -93,20 +96,20 @@ class LKOptimizer
 
   # takes a path and runs optimisation on it to minimize its tour
   # returns the newly made tour if found, nil otherwise
-  def minimize_tour(path, tour)
+  def minimize_tour(path, current_cost)
     max_gain = -1
-    best_path = nil
+    best_shift = nil
     path.each do |x|
       y = path.next(x)
       gain = @@graph.distance(x, y) - @@graph.distance(x, path.last) 
       if gain > max_gain
         max_gain = gain
-        best_path = path.rearrange(x)
+        best_shift = x
       end
     end
     if max_gain > 0
-      new_tour = best_path.reunite
-      if new_tour.cost < tour.cost
+      new_tour = path.rearrange(best_shift).reunite
+      if new_tour.cost < current_cost
         return new_tour
       end
     end
@@ -116,12 +119,11 @@ class LKOptimizer
   # takes a tour and runs optimisation on it until a better tour is found
   # returns the new tour if found, nil otherwise
   def optimize_tour(tour, timer, limit)
-    new_tour = nil
     tour.each do |edge|
       if timer.ellapsed >= limit
         return nil
       end
-      new_tour = minimize_tour(tour.cut(edge), tour)
+      new_tour = minimize_tour(tour.cut(edge), tour.cost)
       unless new_tour.nil?
         return new_tour
       end 

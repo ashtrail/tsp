@@ -1,5 +1,4 @@
 require_relative 'graph'
-require_relative 'greedy_tree'
 
 # for each city finds the nearest neighbor
 class GreedySolver
@@ -22,6 +21,7 @@ class GreedySolver
     closest_neighbor = unvisited_nodes.min_by {|id, distance| distance}
     next_node_id = closest_neighbor[0]
     @visited_nodes.push(next_node_id)
+    @cost += graph.distance(curr_node.id, next_node_id)
     graph.get_node(next_node_id)
   end
 
@@ -33,6 +33,7 @@ class GreedySolver
       curr_node = get_next_node(curr_node, graph)
     end
 
+    @cost += graph.distance(curr_node.id, 0)
     @visited_nodes.push(0)
     @visited_nodes
   end
